@@ -62,26 +62,30 @@ let ingreso         = false;
 
 
 function login(){
+
     user = document.getElementById('email').value;
     password = document.getElementById('password').value;
+    let userObj = obtenerStorage();
+
  
+    if (userObj.email!=document.getElementById('email').value){
         userObj = arrayPersona.find((el) => {
-        return el.email==user
-        })    
-        console.log(userObj);
-        if (user!==undefined){
-            if (password==userObj.password){
-                guardarStorage(userObj);
-                window.location.href = "./account.html";
-            }else{
-                alert("credenciales incorrectas");
-                return false;
-            }
+            return el.email==user
+            })  
+    }  
+    console.log(userObj);
+    if (userObj!==undefined){
+        if (password==userObj.password){
+            guardarStorage(userObj);
+            window.location.href = "./account.html";
         }else{
-            alert("Email no encontrado");
+            alert("credenciales incorrectas");
             return false;
         }
-  
+    }else{
+        alert("Email no encontrado");
+        return false;
+    }  
 }
 
 function mostrarPanel(cripto){ 
@@ -395,64 +399,4 @@ function guardarStorage(userStorage){
 function obtenerStorage(){
     return JSON.parse(localStorage.getItem("usuario"));
 }
-
-
-/*
-doLogin();
-
-function doLogin(){    
-    while (!ingreso) {
-        if (login()){
-            ingreso = true;
-            alert("Bienvenido");
-        }      
-    }  
-}
-*/
-
-//doLogin();
-/*
-if (ingreso){
-    let opcion = prompt("Elegí una opción:  \n1-Saldo \n2-Convertir pesos a BTC \n3-Convertir BTC a pesos \n4-Depositar pesos \n5-Presioná X para finalizar");
-    while(opcion!='X'){
-        switch (opcion) {
-            case "1":
-                alert("Tu saldo en BTC es de: " + user.bitcon + " y tu saldo en pesos es: $" + user.pesos );
-                break;
-            case "2":
-                let compra = prompt("Cuantos PESOS queres invertir?");
-                if (compra>user.pesos){
-                    alert("Saldo en PESOS insuficiente");
-                }else{
-                    user.bitcon = user.bitcon + (compra/bitcon.compra);
-                    user.pesos = user.pesos - compra;
-                    alert("Tus BTC ahora son de: " + user.bitcon);
-                }      
-                break;
-            case "3":
-                let venta = prompt("Cuantos BTC querés vender?");
-                if (venta>user.bitcon){
-                    alert("Saldo BTC insuficiente");
-                }else{
-                    user.pesos = venta * bitcon.venta;
-                    user.bitcon = user.bitcon - venta;
-                    alert("Tus PESOS ahora son de: " + user.pesos);
-                }   
-                break;
-            case "4":
-                let deposito = prompt("Cuantos PESOS querés depositar?");
-                user.pesos = user.pesos + deposito;
-                alert("Tus PESOS ahora son de: " + user.pesos);
-                break;
-            case "X":
-                alert("Hasta la próxima!");
-                break;     
-            default:
-                alert("Comando no válido")
-                break;
-        }     
-        opcion = prompt("Elegí una opción:  \n1-Saldo \n2-Convertir pesos a BTC \n3-Convertir BTC a pesos \n4-Depositar pesos \n Presioná X para finalizar");       
-    }
-}
-*/
 
