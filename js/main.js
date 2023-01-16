@@ -65,15 +65,20 @@ function login(){
 
     user = document.getElementById('email').value;
     password = document.getElementById('password').value;
-    let userObj = obtenerStorage();
-
+    let userObj = obtenerStorage();  
  
-    if (userObj && userObj.email!=document.getElementById('email').value){
+    if (!userObj){
         userObj = arrayPersona.find((el) => {
             return el.email==user
             })  
-    }  
-    console.log(userObj);
+    }else{
+        if (userObj.email!=document.getElementById('email').value){
+            userObj = arrayPersona.find((el) => {
+                return el.email==user
+                })  
+        }
+    }
+ 
     if (userObj!==undefined){
         if (password==userObj.password){
             guardarStorage(userObj);
@@ -123,8 +128,7 @@ function mostrarPanel(cripto){
 
 function btnAccion(accion){
     document.getElementById("saldo").classList.remove("d-none");   
-    let userStorage = obtenerStorage();  
-    console.log(userStorage);
+    let userStorage = obtenerStorage();     
     document.getElementById("saldo").innerHTML = "Tu saldo es: "  + userStorage.bitcon + " BTC";
     switch (accion) {
         case 'comprar':
