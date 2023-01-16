@@ -68,7 +68,7 @@ function login(){
     let userObj = obtenerStorage();
 
  
-    if (userObj.email!=document.getElementById('email').value){
+    if (userObj && userObj.email!=document.getElementById('email').value){
         userObj = arrayPersona.find((el) => {
             return el.email==user
             })  
