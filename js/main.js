@@ -61,7 +61,7 @@ let password = null;
 let ingreso         = false;
 
 
-function login (){
+function login(){
     user = document.getElementById('email').value;
     password = document.getElementById('password').value;
  
@@ -71,6 +71,7 @@ function login (){
         console.log(userObj);
         if (user!==undefined){
             if (password==userObj.password){
+                guardarStorage(userObj);
                 window.location.href = "./account.html";
             }else{
                 alert("credenciales incorrectas");
@@ -119,6 +120,7 @@ function mostrarPanel(cripto){
 function btnAccion(accion){
     document.getElementById("saldo").classList.remove("d-none");   
     let userStorage = obtenerStorage();  
+    console.log(userStorage);
     document.getElementById("saldo").innerHTML = "Tu saldo es: "  + userStorage.bitcon + " BTC";
     switch (accion) {
         case 'comprar':
